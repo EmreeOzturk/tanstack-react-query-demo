@@ -1,3 +1,4 @@
+import { Post } from "../../types";
 import { useUserPostsQuery } from "../lib";
 
 type PostProps = {
@@ -9,8 +10,19 @@ const Posts: React.FC<PostProps> = ({
     const { data: posts, isLoading } = useUserPostsQuery(userId!);
     console.log(posts)
     if (isLoading) {
-        return (<div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900">
-        </div>)
+        return (
+            <div className="flex-1 ml-32 items-start justify-start h-screen">
+                <div className=" animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900">
+                </div>
+            </div>)
+    }
+    if (posts?.length === 0) {
+        return (
+            <div className="flex-1 ml-32 items-start justify-start h-screen">
+                <div className="text-2xl font-bold px-2">
+                    Select a user to see their posts
+                </div>
+            </div>)
     }
     return (
         <div className="flex-1 ml-32 flex-col items-start justify-start h-screen ">
